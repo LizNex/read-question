@@ -32,6 +32,7 @@
   <script src="./question.js"></script>
   <script type="text/javascript"> 
     let index = 0;
+    let speed = 8;
 		function play(){
       if(list.length<=index){
         alert("已经到底")
@@ -57,7 +58,7 @@
 
     function changeAudioSrc(text){
       var ttsAudio = document.getElementById('tts_autio_id');
-      var src = 'http://tts.baidu.com/text2audio?lan=zh&ie=UTF-8&spd=10&text='+text;
+      var src = `http://tts.baidu.com/text2audio?lan=zh&ie=UTF-8&spd=${speed}&text=${text}`;
       document.getElementById('tts_autio_id').setAttribute("src",src)
     }
 		</script>
