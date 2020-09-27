@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>前端问题回答</title>
+	</head>
+	<body>
+    <div id="question">问题：</div>
+    <button id="btn" onclick="play()">下一题</button>
+		<div id="audio">
+			<audio id="tts_autio_id" autoplay="autoplay" src="">
+			</audio>
+    </div>
+  </body>
+  <style>
+    body{
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      height: 100vh;
+    }
+    #btn{
+      margin-top: 10px;
+      width: 200px;
+      height: 100px;
+    }
+
+  </style>
+  <script src="./question.js"></script>
+  <script type="text/javascript"> 
+    let index = 0;
+		function play(){
+      if(list.length<=index){
+        alert("已经到底")
+        return
+      }
+      changeShowText()
+      playAudio()
+		}
+    
+    function getText(){
+      return list[index]
+    }
+
+    function changeShowText(){
+       document.getElementById("question").innerHTML = `问题${index+1}:  ${getText()}`
+    }
+
+    function playAudio(){
+      changeAudioSrc(list[index++])
+      ttsAudio = document.getElementById('tts_autio_id');
+			ttsAudio.play();
+    }
+
+    function changeAudioSrc(text){
+      var ttsAudio = document.getElementById('tts_autio_id');
+      var src = 'http://tts.baidu.com/text2audio?lan=zh&ie=UTF-8&spd=10&text='+text;
+      document.getElementById('tts_autio_id').setAttribute("src",src)
+    }
+		</script>
+</html>
