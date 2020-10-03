@@ -1,12 +1,14 @@
 import React, { useContext } from 'react'
 import { HomeCtx, homeCtx } from '../..'
 import './qa-panel.css'
-
+/** 问答面板 */
 const QAPanel:React.FC = () => {
   const { list, idx, isShowAnswer, isMark } = useContext(homeCtx as React.Context<HomeCtx>)
-
+  /** 序列 */
   const no = `${idx + 1}/${list.length}`
+  /** 问题 */
   const question = list[idx][0]
+  /** 答案 */
   const answer = list[idx][1]
 
   return (

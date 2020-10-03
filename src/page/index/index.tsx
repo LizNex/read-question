@@ -50,12 +50,14 @@ const Home = () => {
   /** 当前显示问题是否被标记 */
   const isMark = markList.includes(idx)
 
+  /** 切换显示标记问题时，重置mark下标 */
   useEffect(() => {
     if (isOnlyShowMark) {
       setMarkIdx(0)
     }
   }, [isOnlyShowMark])
 
+  /** 切换问题时隐藏答案 */
   useEffect(() => {
     setIsShowAnswer(false)
   }, [idx])
