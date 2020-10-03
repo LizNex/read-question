@@ -1,0 +1,17 @@
+.qa-panel{
+  font-size: 28px;
+  display: flex;
+  flex-direction: column;
+  height: 350px;
+  border:1px solid #000;
+  margin-top: 10px;
+  padding: 10px;
+}
+.qa-panel__mark{
+  border-color: red;
+}
+.qa-panel__serial{
+  position: absolute;
+  right: 20px;
+
+}
