@@ -1,14 +1,33 @@
-import React, { createContext, useState, useEffect, useMemo } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 import QAPanel from './components/qa-panel/qa-panel';
 import BtnGroup from './components/btn-group';
 import originList from '../../data/question';
 
-const a: any = null;
-export const homeCtx = createContext(a);
+
+
+
+
+type HomeCtxSetState<T> = React.Dispatch<React.SetStateAction<T>>;
+
+export interface HomeCtx {
+  setIdx: HomeCtxSetState<number>
+  setIsShowAnswer:HomeCtxSetState<boolean>
+    setMarkList:HomeCtxSetState<number[]>
+    setIsOnlyShowMark:HomeCtxSetState<boolean>
+    idx:number
+    list:[]
+    isShowAnswer:boolean
+    isOnlyShowMark:boolean
+    markList:number[]
+    isMark:boolean
+  
+}
+export const homeCtx = createContext<HomeCtx|null>(null);
 export const MARK_LIST = 'MARK_LIST';
 
+
 const Home = () => {
-  const [questionList, setQuestionList] = useState(originList);
+  const [questionList] = useState(originList);
   const [questionIdx, setQuesionIdx] = useState<number>(0);
   const [isShowAnswer, setIsShowAnswer] = useState(false);
   const [markList, setMarkList] = useState(() => {
@@ -16,7 +35,6 @@ const Home = () => {
   });
   const [markIdx, setMarkIdx] = useState(0);
   const [isOnlyShowMark, setIsOnlyShowMark] = useState(false);
-
   const { list, idx, setIdx } = isOnlyShowMark
     ? {
         list: markList.length?markList.map((i: number) => questionList[i]):[[]],
@@ -37,7 +55,7 @@ const Home = () => {
     setIsShowAnswer(false);
   }, [idx]);
 
-  const ctxValue = {
+  const ctxValue:HomeCtx = {
     setIdx,
     setIsShowAnswer,
     setMarkList,
@@ -50,9 +68,9 @@ const Home = () => {
     isMark,
   };
 
+
   return (
     <div>
-      {/* TODO: ts */}
       <homeCtx.Provider value={ctxValue}>
         <QAPanel></QAPanel>
         <BtnGroup></BtnGroup>

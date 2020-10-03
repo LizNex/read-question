@@ -6,3 +6,9 @@
   display: flex;
   flex-direction: column;
 }
+.btn-group-sub{
+  margin-right:20px ;
+}
+.btn-group-sub button{
+  margin: 10px;
+}

@@ -1,5 +1,6 @@
 import React,{useContext,useEffect} from 'react';
-import { homeCtx, MARK_LIST } from '../..';
+import { HomeCtx, homeCtx, MARK_LIST } from '../..';
+import { Question } from '../../../../data/question';
 import BtnPlay from "./btn-play"
 import './index.css';
 
@@ -7,13 +8,13 @@ import './index.css';
 
 const BtnGroup: React.FC = () => {
 
-  const {setIsShowAnswer,idx,list,setIsOnlyShowMark,markList,setMarkList,isMark,isOnlyShowMark} = useContext(homeCtx)
+  const {setIsShowAnswer,idx,setIsOnlyShowMark,markList,setMarkList,isMark,isOnlyShowMark} = useContext(homeCtx as React.Context<HomeCtx> )
   useEffect(() => {
     localStorage.setItem(MARK_LIST,JSON.stringify(markList))
   }, [markList])
  
 
-  const next =(idx:number,list:any[])=>{
+  const next =(idx:number,list:Question)=>{
     if(idx>=list.length-1){
       alert("已到题目尾部")
       return false
@@ -27,7 +28,7 @@ const BtnGroup: React.FC = () => {
     num:1
   };
 
-  const pre =(idx:any)=>{
+  const pre =(idx:number)=>{
     if(idx<=0){
       alert("已到题目顶部")
       return false
@@ -71,17 +72,20 @@ const BtnGroup: React.FC = () => {
 
   return (
     <div className="btn-group">
-      <div className="btn-group_play-group">
+      <div className="btn-group_play-group btn-group-sub">
         <BtnPlay {...preBtn}></BtnPlay>
         <BtnPlay {...againBtn}></BtnPlay>
         <BtnPlay {...nextBtn}></BtnPlay>
       </div>
-      <div className="btn-group_mark-group">
+      <div className="btn-group_mark-group btn-group-sub">
         <button onClick={mark}> {isMark?"取消标记":"标记"} </button>
         <button onClick={clearMark}>清空标记</button>
         <button onClick={onlyMarkList}>{isOnlyShowMark?"显示全部":"只显示标记题目"} </button>
       </div>
-      <button onClick={showAnswer}>显示答案</button>
+      <div className="btn-group-sub">
+        <button onClick={showAnswer}>显示答案</button>
+
+      </div>
     </div>
   );
 };

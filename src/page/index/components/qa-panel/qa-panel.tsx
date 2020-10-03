@@ -1,11 +1,11 @@
 import React,{useContext} from 'react';
-import { homeCtx } from '../..';
+import { HomeCtx, homeCtx } from '../..';
 import "./qa-panel.css"
 
 
-const QAPanel:React.FC<any> = () => {
+const QAPanel:React.FC = () => {
 
-  const {list,idx,isShowAnswer,isMark} = useContext(homeCtx)
+  const {list,idx,isShowAnswer,isMark} = useContext(homeCtx as React.Context<HomeCtx>)
 
   const no=`${idx+1}/${list.length}`
   const question = list[idx][0]

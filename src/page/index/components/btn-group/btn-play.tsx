@@ -1,6 +1,6 @@
-import React, { useState,useRef,useEffect,useContext } from 'react';
+import React, { useState,useRef,useEffect,useContext, AudioHTMLAttributes } from 'react';
 import { Question } from '../../../../data/question';
-import {homeCtx} from "../../index"
+import {HomeCtx, homeCtx} from "../../index"
 
 
 
@@ -18,8 +18,10 @@ interface BtnProps {
 
 /** 播放按钮组件 */
 const BtnPlay:React.FC<BtnProps> = ({num,text,beforePlay}) => {
-  const {setIdx,idx,list} = useContext(homeCtx)
-  const audioRef:any = useRef(null)
+    const {setIdx,idx,list} = useContext(homeCtx as React.Context<HomeCtx>)
+
+
+  const audioRef = useRef<HTMLAudioElement>(null)
   const [forceUpdate, setForceUpdate] = useState(0)
   const [src,setSrc] = useState("")
 
@@ -27,12 +29,12 @@ const BtnPlay:React.FC<BtnProps> = ({num,text,beforePlay}) => {
   useEffect(() => {
     if(audioRef.current && src){
       audioRef.current.play()
-      .catch((err:any)=>console.log(err))
+      .catch((err)=>console.log(err))
     }
   }, [forceUpdate, src])
 
 
-  const change = (num=1, before = (idx:number,list:any[])=>true) => {
+  const change = (num=1, before = (idx:number,list:Question)=>true) => {
     return () => {
       if (!before(idx,list)) {
         return idx;
