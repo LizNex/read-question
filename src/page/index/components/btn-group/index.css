@@ -1,6 +1,7 @@
 .btn-group{
   margin-top: 20px;
   display: flex;
+  justify-content: center;
 }
 .btn-group_mark-group{
   display: flex;

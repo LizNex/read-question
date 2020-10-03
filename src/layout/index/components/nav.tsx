@@ -36,7 +36,6 @@ const Nav:React.FC< {items:NavItemProps[]}> = ({items}) => {
 /** 导航配置列表 */
 const navList:NavItemProps[] = [
   {text:"问答",url:"/home"},
-  {text:"标记集",url:"/mark-list"}
 ]
 
 export default ()=>{

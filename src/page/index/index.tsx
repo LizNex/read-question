@@ -1,14 +1,10 @@
-import React, { createContext, useState, useEffect } from 'react';
-import QAPanel from './components/qa-panel/qa-panel';
-import BtnGroup from './components/btn-group';
-import originList from '../../data/question';
-
-
-
-
+import React, { createContext, useState, useEffect } from 'react'
+import QAPanel from './components/qa-panel/qa-panel'
+import BtnGroup from './components/btn-group'
+import originList from '../../data/question'
 
 type HomeCtxSetState<T> = React.Dispatch<React.SetStateAction<T>>;
-
+/** 首页 上下文 约束 */
 export interface HomeCtx {
   setIdx: HomeCtxSetState<number>
   setIsShowAnswer:HomeCtxSetState<boolean>
@@ -20,40 +16,49 @@ export interface HomeCtx {
     isOnlyShowMark:boolean
     markList:number[]
     isMark:boolean
-  
+
 }
-export const homeCtx = createContext<HomeCtx|null>(null);
-export const MARK_LIST = 'MARK_LIST';
+/** 首页上下文 */
+export const homeCtx = createContext<HomeCtx|null>(null)
+/** 标记列表 localStorage key */
+export const MARK_LIST = 'MARK_LIST'
 
-
+/** 首页组件 */
 const Home = () => {
-  const [questionList] = useState(originList);
-  const [questionIdx, setQuesionIdx] = useState<number>(0);
-  const [isShowAnswer, setIsShowAnswer] = useState(false);
+  /** 问题列表 */
+  const [questionList] = useState(originList)
+  /**  问题列表下标 */
+  const [questionIdx, setQuesionIdx] = useState<number>(0)
+  /** 是否显示答案 */
+  const [isShowAnswer, setIsShowAnswer] = useState(false)
+  /** 标记问题列表 */
   const [markList, setMarkList] = useState(() => {
-    return JSON.parse(localStorage.getItem(MARK_LIST) || '0') || [];
-  });
-  const [markIdx, setMarkIdx] = useState(0);
-  const [isOnlyShowMark, setIsOnlyShowMark] = useState(false);
+    return JSON.parse(localStorage.getItem(MARK_LIST) || '0') || []
+  })
+  /** 标记问题下标 */
+  const [markIdx, setMarkIdx] = useState(0)
+  /**  是否只展示标记问题 */
+  const [isOnlyShowMark, setIsOnlyShowMark] = useState(false)
+  /** 根据是否只显示标记标志位，显示对应列表 */
   const { list, idx, setIdx } = isOnlyShowMark
     ? {
-        list: markList.length?markList.map((i: number) => questionList[i]):[[]],
-        idx: markIdx,
-        setIdx: setMarkIdx,
-      }
-    : { list: questionList, idx: questionIdx, setIdx: setQuesionIdx };
-
-  const isMark = markList.includes(idx);
+      list: markList.length ? markList.map((i: number) => questionList[i]) : [[]],
+      idx: markIdx,
+      setIdx: setMarkIdx
+    }
+    : { list: questionList, idx: questionIdx, setIdx: setQuesionIdx }
+  /** 当前显示问题是否被标记 */
+  const isMark = markList.includes(idx)
 
   useEffect(() => {
     if (isOnlyShowMark) {
-      setMarkIdx(0);
+      setMarkIdx(0)
     }
-  }, [isOnlyShowMark]);
+  }, [isOnlyShowMark])
 
   useEffect(() => {
-    setIsShowAnswer(false);
-  }, [idx]);
+    setIsShowAnswer(false)
+  }, [idx])
 
   const ctxValue:HomeCtx = {
     setIdx,
@@ -65,9 +70,8 @@ const Home = () => {
     isShowAnswer,
     isOnlyShowMark,
     markList,
-    isMark,
-  };
-
+    isMark
+  }
 
   return (
     <div>
@@ -76,7 +80,7 @@ const Home = () => {
         <BtnGroup></BtnGroup>
       </homeCtx.Provider>
     </div>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home
